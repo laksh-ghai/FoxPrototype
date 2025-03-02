@@ -12,7 +12,20 @@ async function getStockData() {
     // API URLs
     const priceUrl = `https://apidojo-yahoo-finance-v1.p.rapidapi.com/market/v2/get-quotes?symbols=${ticker}&region=US`;
     const statsUrl = `https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v4/get-statistics?symbols=${ticker}&region=US`;
-    const newsUrl = `https://newsapi.org/v2/everything?q=${ticker}&sortBy=publishedAt&apiKey=${newsApiKey}`;
+   const newsUrl = `https://newsapi.org/v2/everything?q=${ticker}&sortBy=publishedAt`;
+
+const newsOptions = {
+    method: "GET",
+    headers: {
+        "X-Api-Key": newsApiKey,
+        "Accept": "application/json"
+    }
+};
+
+// Fetch news with proper headers
+const newsResponse = await fetch(newsUrl, newsOptions);
+const newsData = await newsResponse.json();
+
 
     const options = {
         method: "GET",
