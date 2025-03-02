@@ -17,6 +17,23 @@ async function getStockData() {
 const newsOptions = {
     method: "GET",
     headers: {
+        "X-Api-Key": newsApiKey,  
+        "Accept": "application/json",
+        "User-Agent": "Mozilla/5.0"
+    }
+};
+
+// Fetch news with proper headers
+const newsResponse = await fetch(newsUrl, newsOptions);
+if (!newsResponse.ok) {
+    throw new Error(`News API Error: ${newsResponse.status} ${newsResponse.statusText}`);
+}
+const newsData = await newsResponse.json();
+
+
+const newsOptions = {
+    method: "GET",
+    headers: {
         "X-Api-Key": newsApiKey,
         "Accept": "application/json"
     }
@@ -44,6 +61,7 @@ const newsData = await newsResponse.json();
         ]);
 
         const priceData = await priceResponse.json();
+        console.log("Stock API Response:", priceData);
         const statsData = await statsResponse.json();
         const newsData = await newsResponse.json();
 
